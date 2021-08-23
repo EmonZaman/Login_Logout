@@ -2,3 +2,7 @@
 
     color: red;
 }
+.navbar-default .navbar-nav>li>a:hover,.navbar-default .navbar-nav>li>a:active, .navbar-default .navbar-nav>li>a:focus{
+background-color:blue;
+color:white;
+}

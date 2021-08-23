@@ -1,18 +1,51 @@
 {% extends 'accounts/base.html' %}
+{% load static %}
 {% block body_block %}
-  <div class="container">
+<div class="container" style="width:60%; margin-top:15%;">
     <div class="jumbotron">
-      <h1>Please Login</h1>
+        <h3 class="text-center mt-0 font-weight-bold">Please Login</h3>
+        <div class="card-header text-center">
+            <p class="text-muted" style="background:#F7F7F7">Enter Your user name and password</p>
+        </div>
 
-        <form method="post" >
-          {% csrf_token %}
-          {# A more "HTML" way of creating the login form#}
-          {{form.as_p}}
+        <div>
 
-          <input type="submit" name="" value="Login">
 
-        </form>
+            <form enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                <div style="padding-bottom:2.5%">
+                    <label for="id_email" class=" requiredField">
 
+
+                        Email<span class="asteriskField">*</span> </label>
+                    <input type="email" name="email" maxlength="150" autofocus=""
+                           class="textinput textInput form-control is-invalid" required="" id="id_email">
+                </div>
+                <div style="padding-bottom:2.5%">
+
+
+                    <label for="id_password" class=" requiredField">
+                        Password<span class="asteriskField">*</span> </label>
+                    <input type="password" name="password" maxlength="150" autofocus=""
+                           class="textinput textInput form-control is-invalid" required="" id="id_password">
+
+                </div>
+                <div style="padding-top:3%">
+                    <input type="submit" name="save" value="Submit" class="btn btn-primary btn-block mt-5"
+                           id="submit-id-save">
+                </div>
+            </form>
+            <hr>
+            <div class="card-footer">
+                <div class="text-center text-muted py-2">
+                    Don't have an account? <a class="text-muted ml-1" href="/register/"><b>SignUp</b></a>
+                </div>
+            </div>
+
+
+        </div>
     </div>
-  </div>
+</div>
+
+
 {% endblock %}
