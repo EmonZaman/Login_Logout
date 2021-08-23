@@ -1,4 +1,4 @@
-"""cholojai URL Configuration
+"""login_logout URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -17,7 +17,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from cholojai.settings import env, STATIC_URL, MEDIA_URL, STATIC_ROOT, MEDIA_ROOT
+from login_logout.settings import env, STATIC_URL, MEDIA_URL, STATIC_ROOT, MEDIA_ROOT
 
 api_url_patterns = (
     [
@@ -28,7 +28,7 @@ api_url_patterns = (
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('',include('accounts.urls')),
 
     path('api/',include(api_url_patterns))
 ]
