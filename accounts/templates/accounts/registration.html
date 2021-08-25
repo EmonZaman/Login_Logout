@@ -4,7 +4,7 @@
 {% block body_block %}
 <div class="container" style="width:60%; margin-top:5%;">
     <div class="jumbotron">
-        {% if registered %}
+        {% if request.user.is_authenticated %}
 
         <h4 class="text-center mt-0 font-weight-bold">Thank you for registaring</h4>
         {% else %}
@@ -18,6 +18,8 @@
 
             <form enctype="multipart/form-data" method="POST">
                 {% csrf_token %}
+                <!--                {{ form.as_p }}-->
+
 
                 <div style="padding-bottom:2.5%" style="padding-top:2.5%">
                     <label for="id_username" class=" requiredField">
@@ -45,7 +47,7 @@
 
                     <label for="id_password1" class=" requiredField">
                         Password<span class="asteriskField">*</span> </label>
-                    <input type="password" name="password" maxlength="150" autofocus=""
+                    <input type="password"   name="password" maxlength="150" autofocus=""
                            class="textinput textInput form-control is-invalid" required="" id="id_password1">
                     <small id="hint_id_password1" class="form-text text-muted">
                         <ul>
@@ -61,19 +63,20 @@
                 <div style="padding-bottom:2.5%">
                     <label for="id_password2" class=" requiredField">
                         Confirm Password<span class="asteriskField">*</span> </label>
-                    <input type="password" name="password" maxlength="150" autofocus=""
+                    <input type="password" name="password_confirm" maxlength="150" autofocus=""
                            class="textinput textInput form-control is-invalid" required="" id="id_password2">
                     <small id="hint_id_password2" class="form-text text-muted">Enter the same password as before, for
                         verification.</small>
                 </div>
+
                 <div style="padding-top:3%">
                     <input type="submit" name="save" value="Submit" class="btn btn-primary btn-block mt-5"
                            id="submit-id-save">
                 </div>
 
+
             </form>
-              {% endif %}
-              <hr>
+            <hr>
             <div class="card-footer">
                 <div class="text-center text-muted py-2">
                     Already have an account? <a class="text-muted ml-1" href="/login/"><b>LogIn</b></a>
@@ -82,7 +85,10 @@
 
         </div>
 
-    </div>
- </div>
+        {% endif %}
 
-    {% endblock %}
+
+    </div>
+</div>
+
+{% endblock %}
