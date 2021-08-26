@@ -47,7 +47,7 @@
 
                     <label for="id_password1" class=" requiredField">
                         Password<span class="asteriskField">*</span> </label>
-                    <input type="password"   name="password" maxlength="150" autofocus=""
+                    <input type="password" name="password" maxlength="150" autofocus=""
                            class="textinput textInput form-control is-invalid" required="" id="id_password1">
                     <small id="hint_id_password1" class="form-text text-muted">
                         <ul>
@@ -63,14 +63,19 @@
                 <div style="padding-bottom:2.5%">
                     <label for="id_password2" class=" requiredField">
                         Confirm Password<span class="asteriskField">*</span> </label>
-                    <input type="password" name="password_confirm" maxlength="150" autofocus=""
+                    <input type="password" onchange="onChangePassword()" name="password_confirm" maxlength="150"
+                           autofocus=""
+
                            class="textinput textInput form-control is-invalid" required="" id="id_password2">
                     <small id="hint_id_password2" class="form-text text-muted">Enter the same password as before, for
-                        verification.</small>
+                        verification.</small><br>
+                    <span style="color:red;" id="error_span"></span>
                 </div>
 
                 <div style="padding-top:3%">
-                    <input type="submit" name="save" value="Submit" class="btn btn-primary btn-block mt-5"
+                    <button onCLick="submitFunc()" value="Submit" class="btn btn-primary btn-block mt-5">Submit</button>
+                    <input style="display:none" type="submit" name="save" value="Submit"
+                           class="btn btn-primary btn-block mt-5"
                            id="submit-id-save">
                 </div>
 
@@ -90,5 +95,49 @@
 
     </div>
 </div>
+
+{% endblock %}
+{% block extra_scripts %}
+
+<script>
+
+    function onChangePassword(){
+
+        const pass = getValue('id_password1');
+        const confirmPass = getValue('id_password2');
+        console.log(pass,confirmPass);
+
+        if( pass !== confirmPass){
+            document.getElementById('error_span').textContent = "Password aren't matched"
+            return false;
+        }
+        else{
+            console.log('ok')
+            document.getElementById('error_span').textContent  = ""
+            return true ;
+        }
+    }
+
+    function submitFunc(){
+        let status = onChangePassword()
+        console.log('status')
+        if(status === true){
+            document.getElementById("submit-id-save").click();
+        }
+
+    }
+
+    function getValue(id){
+        return document.getElementById(id).value;
+    }
+
+
+    (function() {
+
+})();
+
+
+
+</script>
 
 {% endblock %}

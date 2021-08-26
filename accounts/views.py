@@ -2,11 +2,15 @@ from urllib import request
 
 import self as self
 from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import LoginView as AuthLoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import CreateView
+from django.views.decorators.csrf import csrf_protect
+from django.views.generic import CreateView, FormView
 from django.views.generic import TemplateView
 
 from accounts.forms import UserForm
@@ -83,3 +87,27 @@ class RegistrationView(View):
 class LogoutView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
+
+class PasswordRestView(View):
+    template_name='accounts/password_rest.html'
+    template_index = "accounts/index.html"
+    model=User
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        print(request.POST)
+        print(request.user)
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password1')
+        confirm_password = request.POST.get('new_password2')
+
+        if request.user.check_password(old_password):
+            request.user.set_password(confirm_password)
+            request.user.save()
+            login(request,request.user)
+
+
+
+        return render(request, self.template_index)
+
