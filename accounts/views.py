@@ -88,26 +88,26 @@ class LogoutView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
 
-class PasswordRestView(View):
-    template_name='accounts/password_rest.html'
-    template_index = "accounts/index.html"
-    model=User
-    def get(self, request):
-        return render(request, self.template_name)
-
-    def post(self, request):
-        print(request.POST)
-        print(request.user)
-        old_password = request.POST.get('old_password')
-        new_password = request.POST.get('new_password1')
-        confirm_password = request.POST.get('new_password2')
-
-        if request.user.check_password(old_password):
-            request.user.set_password(confirm_password)
-            request.user.save()
-            login(request,request.user)
-
-
-
-        return render(request, self.template_index)
+# class PasswordRestView(View):
+#     template_name='accounts/practice_password_rest.html'
+#     template_index = "accounts/index.html"
+#     model=User
+#     def get(self, request):
+#         return render(request, self.template_name)
+#
+#     def post(self, request):
+#         print(request.POST)
+#         print(request.user)
+#         old_password = request.POST.get('old_password')
+#         new_password = request.POST.get('new_password1')
+#         confirm_password = request.POST.get('new_password2')
+#
+#         if request.user.check_password(old_password):
+#             request.user.set_password(confirm_password)
+#             request.user.save()
+#             login(request,request.user)
+#
+#
+#
+#         return render(request, self.template_index)
 
