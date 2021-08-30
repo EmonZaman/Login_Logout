@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import Demo
+from .views import UserView, UserDetail
+
 app_name = "accounts-api-v1"
 
 urlpatterns = [
-    path('demo/',Demo.as_view(),name="Demo"),
+    path('user/',UserView.as_view(),name="user"),
+    path('user/<int:pk>/', UserDetail.as_view()),
 ]
