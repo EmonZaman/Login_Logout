@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'rest_framework',
     'crispy_forms',
+    'rest_framework.authtoken',
     # my apps
     'accounts',
     'core',
@@ -176,9 +177,9 @@ LOGGING = {
 # DRF configs
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',

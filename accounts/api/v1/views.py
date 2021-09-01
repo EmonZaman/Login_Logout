@@ -1,14 +1,20 @@
-from accounts.models import User
-from accounts.api.v1.serializers import UserSerailizers
 from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from accounts.api.v1.serializers import UserSerailizers
+from accounts.models import User
 
 
+# ./manage.py drf_create_token admin
 class UserView(APIView):
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
+
         user = User.objects.all()
         serializer = UserSerailizers(user, many=True)
         return Response(serializer.data)
@@ -21,7 +27,8 @@ class UserView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class UserDetail(APIView):
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = (IsAuthenticated,)
     def get_object(self, pk):
         try:
             return User.objects.get(pk=pk)
